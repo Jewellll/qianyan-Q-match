@@ -41,7 +41,7 @@ def create_dataloader(dataset,
         return_list=True)
 
 
-def read_text_pair(data_path, is_test=False):
+def read_text_pair(data_path, is_test=False):  # 返回一个字典
     """Reads data."""
     with open(data_path, 'r', encoding='utf-8') as f:
         for line in f:

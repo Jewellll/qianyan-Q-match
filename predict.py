@@ -34,11 +34,15 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--input_file", type=str, required=True, help="The full path of input file")
 parser.add_argument("--result_file", type=str, required=True, help="The result file name")
 parser.add_argument("--params_path", type=str, required=True, help="The path to model parameters to be loaded.")
-parser.add_argument("--max_seq_length", default=256, type=int, help="The maximum total input sequence length after tokenization. "
-    "Sequences longer than this will be truncated, sequences shorter will be padded.")
+parser.add_argument("--max_seq_length", default=256, type=int,
+                    help="The maximum total input sequence length after tokenization. "
+                         "Sequences longer than this will be truncated, sequences shorter will be padded.")
 parser.add_argument("--batch_size", default=32, type=int, help="Batch size per GPU/CPU for training.")
-parser.add_argument('--device', choices=['cpu', 'gpu'], default="gpu", help="Select which device to train model, defaults to gpu.")
+parser.add_argument('--device', choices=['cpu', 'gpu'], default="gpu",
+                    help="Select which device to train model, defaults to gpu.")
 args = parser.parse_args()
+
+
 # yapf: enable
 
 
@@ -47,8 +51,8 @@ def predict(model, data_loader):
     Predicts the data labels.
 
     Args:
-        model (obj:`QuestionMatching`): A model to calculate whether the question pair is semantic similar or not.
-        data_loaer (obj:`List(Example)`): The processed data ids of text pair: [query_input_ids, query_token_type_ids, title_input_ids, title_token_type_ids]
+        :param model (obj:`QuestionMatching`): A model to calculate whether the question pair is semantic similar or not.
+        :param data_loaer (obj:`List(Example)`): The processed data ids of text pair: [query_input_ids, query_token_type_ids, title_input_ids, title_token_type_ids]
     Returns:
         results(obj:`List`): cosine similarity of text pairs.
     """
@@ -114,7 +118,7 @@ if __name__ == "__main__":
 
     y_probs = predict(model, test_data_loader)
     y_preds = np.argmax(y_probs, axis=1)
-    
+
     with open(args.result_file, 'w', encoding="utf-8") as f:
         for y_pred in y_preds:
             f.write(str(y_pred) + "\n")
